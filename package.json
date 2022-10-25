@@ -12,7 +12,9 @@
     "format": "prettier --config .prettierrc --write src/**/*.{js,ts,tsx,css,json}"
   },
   "dependencies": {
+    "@emotion/cache": "^11.10.3",
     "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.4",
     "@fontsource/nunito": "^4.5.11",
     "@mui/icons-material": "^5.10.9",
