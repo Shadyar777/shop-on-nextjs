@@ -1,14 +1,17 @@
 import '../../styles/globals.css'
 import type { AppProps } from 'next/app'
+import { CacheProvider, EmotionCache, ThemeProvider } from '@emotion/react'
+import { CssBaseline } from '@mui/material'
+
 import '@fontsource/nunito/300.css'
 import '@fontsource/nunito/400.css'
 import '@fontsource/nunito/500.css'
 import '@fontsource/nunito/700.css'
-import { CssBaseline } from '@mui/material'
-import { CacheProvider, EmotionCache, ThemeProvider } from '@emotion/react'
-import { NextPageWithLayout } from '../utils/types'
-import createEmotionCache from '../theme/createEmotionCache'
-import { ColorModeContext, useMode } from '../theme/mui-theme'
+
+import { wrapper } from '@/src/store'
+import { NextPageWithLayout } from '@/src/utils/types'
+import createEmotionCache from '@/src/theme/createEmotionCache'
+import { ColorModeContext, useMode } from '@/src/theme/mui-theme'
 
 interface AppPropsWithStylesCache extends AppProps {
   Component: NextPageWithLayout
@@ -39,4 +42,4 @@ function MyApp({
   )
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp)
