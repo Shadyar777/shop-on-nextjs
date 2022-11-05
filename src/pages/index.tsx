@@ -1,6 +1,6 @@
 import { NextPageWithLayout } from '../utils/types'
-import HomeView from '../modules/main/views/HomeView'
-import MainLayout from '../modules/common/layout/MainLayout'
+import HomeView from '@/src/modules/main/views/HomeView'
+import MainLayout from '@/src/modules/common/layout/MainLayout'
 
 const Home: NextPageWithLayout = () => <HomeView />
 

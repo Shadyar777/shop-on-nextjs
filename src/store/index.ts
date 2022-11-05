@@ -15,7 +15,7 @@ const reducer: Reducer<RootState> = (state, action) => {
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-const makeStore = () => {
+export const makeStore = () => {
   const store = configureStore({
     reducer,
     devTools: isDevelopment,
