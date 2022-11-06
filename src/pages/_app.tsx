@@ -2,8 +2,9 @@ import { ReactElement, ReactNode } from 'react'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
-import { CacheProvider, EmotionCache, ThemeProvider } from '@emotion/react'
-import { CssBaseline } from '@mui/material'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import { CssBaseline, Theme } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 
 import '@fontsource/nunito/300.css'
 import '@fontsource/nunito/400.css'
@@ -26,6 +27,10 @@ type PropsType = {
   pageProps: (_page: ReactElement) => ReactNode
 }
 
+type ColorMode = {
+  toggleColorMode: () => void
+}
+
 const clientSideEmotionCache = createEmotionCache()
 
 function MyApp({ Component, ...rest }: AppPropsWithStylesCache) {
@@ -40,11 +45,10 @@ function MyApp({ Component, ...rest }: AppPropsWithStylesCache) {
         <meta name='viewport' content='initial-scale=1, width=device-width' />
         <title>Home</title>
       </Head>
-      {/*FIXME: ColorModeContext value type -*/}
       <Provider store={store}>
-        <ColorModeContext.Provider value={colorMode as any}>
+        <ColorModeContext.Provider value={colorMode as ColorMode}>
           <CacheProvider value={emotionCache}>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme as Theme}>
               <CssBaseline />
               {getLayout(<Component {...pageProps} />)}
             </ThemeProvider>
