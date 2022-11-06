@@ -1,12 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectAuthState, setAuthState } from '@/src/store/authState'
+import { Box } from '@mui/material'
 
 const HomeView = () => {
   const authState = useSelector(selectAuthState)
   const dispatch = useDispatch()
   return (
-    <div>
+    <Box margin={'50px 0'}>
       <div>{authState ? 'Logged in' : 'Not Logged In'}</div>
       <button
         onClick={() =>
@@ -17,7 +18,7 @@ const HomeView = () => {
       >
         {authState ? 'Logout' : 'LogIn'}
       </button>
-    </div>
+    </Box>
   )
 }
 
