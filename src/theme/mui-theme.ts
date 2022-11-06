@@ -5,6 +5,19 @@ export const tokens = (mode: string) => ({
   ...(mode === 'dark'
     ? {
         blue: '#0466c8',
+        background: 'dark',
+        darkBlue: '#8eecf5',
+        lightBlue: '#4895ef',
+        oceanBlue: '#12131d',
+        blueBackground: '#12131d',
+        cardColor: '#12131d',
+        cardColor2: '#12131d',
+        red: '#12131d',
+        svgColor: '#8eecf5',
+        elevateShadow: 'rgba(32, 29, 233, 0.637) 0px 25px 50px -12px',
+      }
+    : {
+        blue: '#0466c8',
         background: 'white',
         darkBlue: '#03045e',
         lightBlue: '#304a58',
@@ -15,19 +28,6 @@ export const tokens = (mode: string) => ({
         red: '#f94144',
         svgColor: 'black',
         elevateShadow: 'rgba(0, 0, 0, 0.25) 0px 25px 50px -12px',
-      }
-    : {
-        blue: '#0466c8',
-        background: 'black',
-        darkBlue: '#8eecf5',
-        lightBlue: '#4895ef',
-        oceanBlue: '#12131d',
-        blueBackground: '#12131d',
-        cardColor: '#12131d',
-        cardColor2: '#12131d',
-        red: '#12131d',
-        svgColor: '#8eecf5',
-        elevateShadow: 'rgba(32, 29, 233, 0.637) 0px 25px 50px -12px',
       }),
 })
 export type PaletteMode = 'light' | 'dark'
@@ -53,9 +53,9 @@ export const themeSettings = (mode: string): ThemeOptions => {
             primary: {
               main: colors.blue,
             },
-            // secondary: {
-            //   main: colors.greenAccent[500],
-            // },
+            secondary: {
+              main: colors.blue,
+            },
             neutral: {
               primary: colors.cardColor,
               secondary: colors.cardColor2,
@@ -63,9 +63,11 @@ export const themeSettings = (mode: string): ThemeOptions => {
             text: {
               primary: colors.darkBlue,
               secondary: colors.lightBlue,
+              disabled: 'red',
             },
             background: {
               default: colors.background,
+              paper: colors.background,
             },
             custom: {
               shadow: colors.elevateShadow,
@@ -76,9 +78,9 @@ export const themeSettings = (mode: string): ThemeOptions => {
             primary: {
               main: colors.blue,
             },
-            // secondary: {
-            //   main: colors.greenAccent[500],
-            // },
+            secondary: {
+              main: colors.blue,
+            },
             neutral: {
               primary: colors.cardColor,
               secondary: colors.cardColor2,
@@ -86,9 +88,11 @@ export const themeSettings = (mode: string): ThemeOptions => {
             text: {
               primary: colors.darkBlue,
               secondary: colors.lightBlue,
+              disabled: 'red',
             },
             background: {
               default: colors.background,
+              paper: colors.background,
             },
             custom: {
               shadow: colors.elevateShadow,
@@ -121,6 +125,15 @@ export const themeSettings = (mode: string): ThemeOptions => {
       h6: {
         fontFamily: ['Nunito', 'sans-serif'].join(','),
         fontSize: 14,
+      },
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          body: {
+            backgroundColor: mode === 'dark' ? 'black' : 'white',
+          },
+        },
       },
     },
   }
