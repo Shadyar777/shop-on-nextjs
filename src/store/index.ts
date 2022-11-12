@@ -1,8 +1,11 @@
-import { Action, configureStore, Reducer, ThunkAction } from '@reduxjs/toolkit'
-import { createWrapper, HYDRATE } from 'next-redux-wrapper'
-import { rootReducer, RootState } from '@/src/store/rootReducer'
+import { AsyncThunk, configureStore, Reducer, Store } from '@reduxjs/toolkit'
+import { Context, createWrapper, HYDRATE } from 'next-redux-wrapper'
 
-const reducer: Reducer<RootState> = (state, action) => {
+import { rootReducer } from '@/src/store/rootReducer'
+
+type TRootState = ReturnType<typeof rootReducer>
+
+const reducer: Reducer<TRootState> = (state, action) => {
   if (action.type === HYDRATE) {
     return {
       ...state,
@@ -15,30 +18,31 @@ const reducer: Reducer<RootState> = (state, action) => {
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-export const makeStore = () => {
-  const store = configureStore({
-    reducer,
-    devTools: isDevelopment,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-  })
-  if (isDevelopment && (module as any).hot) {
-    ;(module as any).hot.accept('./rootReducer', () => {
-      const newRootReducer = require('./rootReducer').default
-      store.replaceReducer(newRootReducer)
-    })
-  }
+export const store = configureStore({
+  reducer,
+  devTools: isDevelopment,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+})
 
-  return store
+const makeStore = (_context: Context) => store
+
+export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+
+export type ThunkApiConfig = {
+  state: RootState
+  dispatch: AppDispatch
+  rejectValue: any
+  serializedErrorType: any
+  pendingMeta: any
+  fulfilledMeta: any
+  rejectedMeta: any
 }
 
-export type AppStore = ReturnType<typeof makeStore>
-export type AppState = ReturnType<AppStore['getState']>
-
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppState,
-  unknown,
-  Action
+export type AppThunk<Returned = void, ThunkArg = void> = AsyncThunk<
+  Returned,
+  ThunkArg,
+  ThunkApiConfig
 >
 
-export const wrapper = createWrapper<AppStore>(makeStore)
+export const wrapper = createWrapper<Store<RootState>>(makeStore)
